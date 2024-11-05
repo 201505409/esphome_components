@@ -53,10 +53,10 @@ sensor:
     address: 1204
     filters:
       - multiply: 0.01
-      - clamp
-        min_value: 0
-        max_value: 100
-        ignore_out_of_range: true
+      - clamp:
+          min_value: 0
+          max_value: 100
+          ignore_out_of_range: true
       
 ###########################
 #### HOLDING REGISTERS ####
