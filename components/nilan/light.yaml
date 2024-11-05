@@ -53,21 +53,15 @@ sensor:
     address: 1204
     filters:
       - multiply: 0.01
+      - clamp
+        min_value: 0
+        max_value: 100
+        ignore_out_of_range: true
       
 ###########################
 #### HOLDING REGISTERS ####
 ###########################
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Cooling set temperature"
-    id: nilan_cooling_set_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    register_type: holding
-    address: 1200
-    filters:
-      - multiply: 0.01
+
       
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
@@ -128,45 +122,7 @@ binary_sensor:
         || id(nilan_alarm_list_2_id).state == 19
         || id(nilan_alarm_list_3_id).state == 19);
         
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Door open"
-    id: nilan_door_open
-    register_type: read
-    address: 102
-    bitmask: 1
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Motor thermo fuse"
-    id: nilan_motor_thermo_fuse
-    register_type: read
-    address: 104
-    bitmask: 1
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Heating surface frost/overheat"
-    id: nilan_heating_surface_frost_oerheat
-    register_type: read
-    address: 105
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Airflow monitor"
-    id: nilan_airflow_monitor
-    register_type: read
-    address: 106
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Low pressure switch"
-    id: nilan_low_pressure
-    register_type: read
-    address: 108
-    bitmask: 1
 
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
