@@ -33,21 +33,6 @@ binary_sensor:
     address: 100
     bitmask: 1
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Smoke alarm"
-    id: nilan_smoke_alarm
-    register_type: read
-    address: 103
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "High pressure switch"
-    id: nilan_high_pressure
-    register_type: read
-    address: 107
-    bitmask: 1
 
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
@@ -67,12 +52,6 @@ binary_sensor:
     register_type: holding
     address: 123
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Defrost function active"
-    id: nilan_defrost_function_active
-    register_type: holding
-    address: 125
 
 sensor:
 #########################
@@ -101,31 +80,7 @@ sensor:
     filters:
       - multiply: 0.01
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "External room temperature"
-    id: nilan_extern_temp_t10
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 210
-    filters:
-      - multiply: 0.01
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Room temperature"
-    id: nilan_room_temp_t15
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 215
-    filters:
-      - multiply: 0.01
 
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
@@ -267,40 +222,8 @@ sensor:
     filters:
       - multiply: 0.01
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual room temperature"
-    id: nilan_actual_room_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 1203
-    filters:
-      - multiply: 0.01
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Requested capacity"
-    id: nilan_requested_capacity
-    unit_of_measurement: '%'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1205
-    filters:
-      - multiply: 0.01
-      
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual capacity"
-    id: nilan_actual_capacity
-    unit_of_measurement: '%'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1206
-    filters:
-      - multiply: 0.01
+
 
 number:
   - platform: modbus_controller
@@ -409,45 +332,10 @@ number:
     use_write_multiple: true
     icon: mdi:clock-start
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "CO2 high vent step"
-    id: co2_high_vent_step
-    min_value: 0.0
-    max_value: 4.0
-    step: 1.0
-    address: 1920
-    force_new_range: true
-    use_write_multiple: true
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "CO2 limit normal ventilation"
-    id: co2_limit_normal_ventilation
-    min_value: 400
-    max_value: 750
-    step: 1.0
-    address: 1921
-    force_new_range: true
-    use_write_multiple: true
-    mode: slider
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "CO2 limit high ventilation"
-    id: co2_limit_high_ventilation
-    min_value: 650
-    max_value: 800
-    step: 1.0
-    address: 1922
-    force_new_range: true
-    use_write_multiple: true
 
 text_sensor:
-  - platform: template
-    name: "Air Quality Index CO2 (AQI)"
-    id: aqi_co2
-    icon: mdi:air-filter    
+  
   - platform: template
     name: "Alarm 1 timestamp"
     id: nilan_alarm_list_1_datetime
