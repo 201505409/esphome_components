@@ -12,7 +12,7 @@ sensor:
     icon: "mdi:thermometer"
     unit_of_measurement: °C
     update_interval: 10s
-    lambda: 'return id(nilan_exhaust_temp_t3).state - id(nilan_inlet_temp_t7).state;'
+    lambda: 'return id(nilan_inlet_temp_t7).state - id(nilan_exhaust_temp_t3).state;'
 
 #########################
 #### INPUT REGISTERS ####
