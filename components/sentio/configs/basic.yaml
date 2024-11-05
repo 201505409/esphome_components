@@ -1,5 +1,5 @@
 external_components:
-  - source: github://nic6911/esphome_components
+  - source: github://201505409/esphome_components
     refresh: 0s  
     
 sentio:
