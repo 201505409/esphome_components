@@ -35,6 +35,10 @@ sensor:
     address: 1104
     filters:
       - multiply: 0.01
+      - clamp:
+          min_value: -10
+          max_value: 100
+          ignore_out_of_range: true
       
   - platform: modbus_controller
     modbus_controller_id: sentio_modbus_controller
