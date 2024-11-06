@@ -8,35 +8,34 @@ static const char *TAG = "sentio.climate";
 
 void SentioClimate::setup() {
   current_temp_sensor_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "CURRENT TEMP SENSOR CALLBACK: %f", state);
-    current_temperature = state;
+    // Set current temperature with 0.1 precision
+    current_temperature = roundf(state * 10) / 10.0;
     publish_state();
   });
   temp_setpoint_number_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "TEMP SETPOINT SENSOR CALLBACK: %f", state);
-    target_temperature = state;
+    // Set target temperature to match 0.5 precision for setpoint
+    target_temperature = roundf(state * 2) / 2.0;
     publish_state();
   });
 
   mode_select_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "FAN SPEED SENSOR CALLBACK: %f", state);
     sentio_mode_to_climatemode(state);
     publish_state();
   });
 
-  current_temperature = current_temp_sensor_->state;
-  target_temperature  = temp_setpoint_number_->state;
+  // Initialize with current states
+  current_temperature = roundf(current_temp_sensor_->state * 10) / 10.0;
+  target_temperature  = roundf(temp_setpoint_number_->state * 2) / 2.0;
   sentio_mode_to_climatemode(mode_select_->state); 
 }
 
 void SentioClimate::control(const climate::ClimateCall& call) {
   if (call.get_target_temperature().has_value())
   {
-    this->target_temperature = *call.get_target_temperature();
+    this->target_temperature = roundf(*call.get_target_temperature() * 2) / 2.0;
     float target = target_temperature;
     ESP_LOGD(TAG, "Target temperature changed to: %f", target);
-    //temp_setpoint_number_->set(target);
-    temp_setpoint_number_->make_call().set_value(target).perform();//set(target);
+    temp_setpoint_number_->make_call().set_value(target).perform();
   }
 }
 
@@ -44,7 +43,7 @@ climate::ClimateTraits SentioClimate::traits() {
   auto traits = climate::ClimateTraits();
 
   traits.set_supports_current_temperature(true);
-  traits.set_visual_temperature_step(0.5);
+  traits.set_visual_temperature_step(0.5);  // 0.5 step for setpoint adjustment
   traits.set_visual_min_temperature(5);
   traits.set_visual_max_temperature(30);
 
