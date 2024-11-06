@@ -123,3 +123,4 @@ climate:
     current_temp_sensor_id: temperatur_channel_1
     target_temp_sensor_id: temperatur_setpunkt_channel_1
     mode_select_id: mode_channel_1
+    target_temp_step: 0.5
