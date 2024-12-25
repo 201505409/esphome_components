@@ -123,9 +123,3 @@ climate:
     current_temp_sensor_id: temperatur_channel_1
     target_temp_sensor_id: temperatur_setpunkt_channel_1
     mode_select_id: mode_channel_1
-    visual:
-      min_temperature: -10
-      max_temperature: 40
-      temperature_step:
-        target_temperature: 0.5
-        current_temperature: 0.1
